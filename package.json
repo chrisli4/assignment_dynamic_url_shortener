@@ -1,0 +1,29 @@
+{
+  "name": "assignment_dynamic_url_shortener",
+  "version": "1.0.0",
+  "description": "Build a URL shortening service, outfitted with realtime analytics.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chrisli4/assignment_dynamic_url_shortener.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chrisli4/assignment_dynamic_url_shortener/issues"
+  },
+  "homepage": "https://github.com/chrisli4/assignment_dynamic_url_shortener#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "express-handlebars": "^3.0.0",
+    "google-url": "0.0.4",
+    "http": "0.0.0",
+    "path": "^0.12.7",
+    "randomstring": "^1.1.5"
+  }
+}
