@@ -12,9 +12,9 @@
 </div>
 
 <div class="shorten content constrain">
-	<table>
-		<thead>
-			<tr></tr>
-		</thead>
-	</table>
+
+	{{#each results as |result|}}
+		<div>{{result.name}} {{result.oURL}}  {{result.count}}</div>
+	{{/each}}
+
 </div>

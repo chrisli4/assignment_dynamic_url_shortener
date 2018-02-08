@@ -70,12 +70,12 @@ app.post('/submit', (req, res) => {
 				results.push(item);
 			}
 
-			console.log(results);
+			res.render('index', { results });
 
 		})
 		.catch(err => {
 			console.log(err);
-		})
+		});
 });
 
 
