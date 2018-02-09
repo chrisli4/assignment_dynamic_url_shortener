@@ -12,9 +12,46 @@
 </div>
 
 <div class="shorten content constrain">
-
-	{{#each results as |result|}}
-		<div>{{result.name}} {{result.oURL}}  {{result.count}}</div>
-	{{/each}}
-
+	<table>
+		<thead>
+			<tr>
+				<th>Original URL</th>
+				<th>Short URL</th>
+				<th>All Clicks</th>
+			</tr>
+		</thead>
+		<tfoot></tfoot>
+		<tbody>
+			{{#each results as |result|}}
+			<tr>
+				<td>{{result.oURL}}</td>
+				<td class="sURL" id="{{result.sURL}}">{{result.sURL}}</td>
+				<td class="count" id="{{result.sURL}}count">{{result.count}}</td>
+			</tr>
+			{{/each}}
+		</tbody>
+	</table>
 </div>
+
+<script>
+	$('document').ready(() => {
+
+		var socket = io.connect('http://localhost:3000');
+
+		$('.sURL').click((event) => {
+
+			const id = event.target.id;
+
+			socket.emit('increment', id);
+		});
+
+		socket.on('update', (id, count) => {
+
+
+
+		});
+
+
+	});
+
+</script>

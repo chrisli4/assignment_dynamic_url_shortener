@@ -7,6 +7,24 @@ const generate = () => {
 	return shortenURL;
 }
 
+const combine = (urls, counts) => {
+
+	let results = [];
+
+	if(urls == null || Object.keys(urls).length === 0)
+		return results
+
+	const ids = Object.keys(urls);
+		  results = ids.map(id => {
+
+		return { sURL: id, oURL: urls[id], count: counts[id] }
+
+	});
+
+	return results;
+};
+
 module.exports = {
-	generate
+	generate,
+	combine
 }

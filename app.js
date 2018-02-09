@@ -5,6 +5,7 @@ const exphbs = require('express-handlebars');
 
 const app = express();
 const server = require('http').createServer(app);
+const io = require('socket.io')(server);
 const redis = require('./modules/redis-lib');
 const shortener = require('./modules/url-shortener');
 
@@ -13,13 +14,31 @@ app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use('/socket.io', express.static(__dirname + 'node_modules/socket.io-client/dist/'));
+
 
 const hostname = 'localhost:3000';
 
 app.get('/', (req, res) => {
 
-	res.render('index');
+	let urls, counts, results;
 
+	redis
+		.getURLs()
+		.then(data => {
+			urls = data;
+			console.log(urls);
+			return redis.getCounts();
+		})
+		.then(data => {
+			counts = data;
+			results = shortener.combine(urls, counts);
+			console.log(results);
+			res.render('index', { results });
+		})
+		.catch(err => {
+			console.log(err);
+		})
 });
 
 app.get('/:shortenURL', (req, res) => {
@@ -79,6 +98,19 @@ app.post('/submit', (req, res) => {
 });
 
 
+io.on('connection', socket => {
+
+	console.log('New connection!');
+
+	socket.on('increment', (data) => {
+			
+		redis
+			.incr(data)
+			.then(data => {
+				console.log(data);
+			});
+	});
+}); 
 
 
 server.listen(3000, () => {
