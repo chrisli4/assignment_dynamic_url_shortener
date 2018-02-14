@@ -1,20 +1,39 @@
 <div class="shorten header">
 	<div class="constrain">
 		<h1>Simplify Your Links</h1>
-		<div class="input-container">
-			<form action="/submit" method="POST">
-				<input type="text" name="originalURL" placeholder="Your original URL here">
-				<button class="">Shorten URL</button>
+			<form action="/update" method="POST">
+			  <div class="form-group">
+			    <input type="text" class="form-control" name="originalURL" placeholder="Your original URL here">
+			    <button type="submit" class="btn btn-success">Shorten URL</button>
+			  </div>
 			</form>
-		</div>
+
 		<div class="tagline"></div>
 	</div>
 </div>
 
 <div class="shorten content constrain">
-
-	{{#each results as |result|}}
-		<div>{{result.name}} {{result.oURL}}  {{result.count}}</div>
-	{{/each}}
-
+	<table class="table table-hover">
+		<thead class="thead-light">
+			<tr>
+				<th scope="col">Original URL</th>
+				<th scope="col">Short URL</th>
+				<th scope="col">All Clicks</th>
+			</tr>
+		</thead>
+		<tfoot></tfoot>
+		<tbody>
+			{{#each urls as |url|}}
+			<tr id="{{url.sURL}}">
+				<td>
+					<a href="{{url.oURLPath}}">{{url.oURL}}</a>
+				</td>
+				<td id="{{url.qualified}}">
+					<a class="qualified" href="{{url.oURLPath}}" value="{{url.sURL}}">{{url.qualified}}</a>
+				</td>
+				<td class="count">{{url.count}}</td>
+			</tr>
+			{{/each}}
+		</tbody>
+	</table>
 </div>
